@@ -8,10 +8,38 @@ namespace Ex03.GarageLogic.Model
 {
     internal class GarageVehicle
     {
-        private Vehicle m_Vehicle;
-        private string m_OwnerName;
-        private string m_OwnerPhone;
-        private eCarState m_CarState;
+        private readonly Vehicle m_Vehicle;
+        private readonly string m_OwnerName;
+        private readonly string m_OwnerPhone;
+        private eVehicleStatus m_Status;
 
+        public Vehicle Vehicle
+        {
+            get { return m_Vehicle; }
+        }
+
+        public string OwnerName
+        {
+            get { return m_OwnerName; }
+        }
+
+        public string OwnerPhone
+        {
+            get { return m_OwnerPhone; }
+        }
+
+        public eVehicleStatus Status
+        {
+            get { return m_Status; }
+            set { m_Status = value; }
+        }
+
+        public GarageVehicle(Vehicle i_Vehicle, string i_OwnerName, string i_OwnerPhone)
+        {
+            m_Vehicle = i_Vehicle;
+            m_OwnerName = i_OwnerName;
+            m_OwnerPhone = i_OwnerPhone;
+            m_Status = eVehicleStatus.InRepair;
+        }
     }
 }

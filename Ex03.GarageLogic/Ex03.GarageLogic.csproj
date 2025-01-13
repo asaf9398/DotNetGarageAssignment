@@ -40,18 +40,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Enums\eCarColor.cs" />
-    <Compile Include="Enums\eCarState.cs" />
-    <Compile Include="Enums\eEnergyType.cs" />
+    <Compile Include="Enums\eVechicleType.cs" />
+    <Compile Include="Enums\eVehicleColor.cs" />
+    <Compile Include="Enums\eVehicleStatus.cs" />
+    <Compile Include="Enums\eFuelType.cs" />
     <Compile Include="Enums\eMotorcicleLicenceType.cs" />
     <Compile Include="Enums\eNumberOfDoors.cs" />
+    <Compile Include="Exceptions\ValueOutOfRangeException.cs" />
     <Compile Include="Factory\VehicleFactory.cs" />
     <Compile Include="Model\Car.cs" />
+    <Compile Include="Model\ElectricEngine.cs" />
     <Compile Include="Model\Engine.cs" />
+    <Compile Include="Model\FuelEngine.cs" />
+    <Compile Include="Model\Garage.cs" />
     <Compile Include="Model\GarageVehicle.cs" />
     <Compile Include="Model\Motorcycle.cs" />
     <Compile Include="Model\Truck.cs" />
     <Compile Include="Model\Vehicle.cs" />
+    <Compile Include="Model\VehicleInputHelper.cs" />
     <Compile Include="Model\Wheel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

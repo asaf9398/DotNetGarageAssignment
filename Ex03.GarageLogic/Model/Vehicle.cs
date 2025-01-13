@@ -1,22 +1,67 @@
 ﻿using Ex03.GarageLogic.Enums;
 using System.Collections.Generic;
+using System.Runtime.Remoting.Messaging;
 
 namespace Ex03.GarageLogic.Model
 {
-    abstract class Vehicle
+    internal abstract class Vehicle
     {
-        protected readonly string r_ModelName;
-        protected readonly string r_LicenseNumber;
-        protected float r_PowerSourcePercentage;
-        protected List<Wheel> m_Wheels { get; set; }
-        protected readonly Engine r_Engine;
+        private string m_ModelName;
+        private string m_LicenseNumber;
+        private List<Wheel> m_Wheels;
+        private Engine m_Engine;
 
-        protected Vehicle(string i_ModelName, string i_LicenseNumber, eEnergyType i_EnergyType, float i_MaxCapacity, List<Wheel> i_Wheels, float i_CurrentEnergyAmount = 0)
+        public string ModelName
         {
-            r_ModelName = i_ModelName;
-            r_LicenseNumber = i_LicenseNumber;
-            r_Engine = new Engine(i_EnergyType, i_MaxCapacity, i_CurrentEnergyAmount);
-            m_Wheels = i_Wheels;
+            get { return m_ModelName; }
+            set { m_ModelName = value; }
+        }
+
+        public string LicenseNumber
+        {
+            get { return m_LicenseNumber; }
+            set { m_LicenseNumber = value; }
+        }
+
+        public List<Wheel> Wheels
+        {
+            get { return m_Wheels; }
+        }
+
+        public Engine Engine
+        {
+            get { return m_Engine; }
+            set { m_Engine = value; }
+        }
+
+        public float GetEnergyPercentage()
+        {
+            return (m_Engine.CurrentEnergy / m_Engine.MaxEnergy) * 100;
+        }
+
+        protected Vehicle(Engine i_Engine, int i_NumberOfWheels, float i_MaxAirPressurePerWheel)
+        {
+            Engine = i_Engine;
+            m_Wheels = new List<Wheel>(i_NumberOfWheels);
+
+            for (int i = 0; i < i_NumberOfWheels; i++)
+            {
+                m_Wheels.Add(new Wheel(string.Empty, i_MaxAirPressurePerWheel));
+            }
+        }
+
+        public void InflateWheels(float i_PressureToAdd)
+        {
+            foreach (Wheel wheel in m_Wheels)
+            {
+                wheel.Inflate(i_PressureToAdd);
+            }
+        }
+
+        public override string ToString()
+        {
+            return $"Model Name: {m_ModelName}, License Number: {m_LicenseNumber}, Energy Percentage: {GetEnergyPercentage()}%";
         }
     }
+
 }

@@ -9,30 +9,45 @@ namespace Ex03.GarageLogic.Model
 {
     internal class Truck : Vehicle
     {
-        // Protected properties
-        protected bool Refrigerator { get; set; }
-        protected float CargoVolume { get; }
+        private bool m_IsRefrigerated;
+        private float m_CargoVolume;
 
-        // Constructor
-        public Truck(
-            string i_ModelName,
-            string i_LicenseNumber,
-            List<Wheel> i_Wheels,
-            eEnergyType i_EnergyType,
-            float i_EnergyMaxCapacity,
-            bool i_Refrigerator,
-            float i_CargoVolume, float i_CurrentEnergyAmount = 0)
-             : base(i_ModelName, i_LicenseNumber, i_EnergyType, i_EnergyMaxCapacity, i_Wheels, i_CurrentEnergyAmount)
+        public bool IsRefrigerated
         {
-            // Validate cargo volume
-            if (i_CargoVolume <= 0)
-            {
-                throw new ArgumentException("Cargo volume must be a positive value.");
-            }
+            get { return m_IsRefrigerated; }
+            set { m_IsRefrigerated = value; }
+        }
 
-            Refrigerator = i_Refrigerator;
+        public float CargoVolume
+        {
+            get { return m_CargoVolume; }
+            set
+            {
+                if (value <= 0)
+                {
+                    throw new ArgumentException("Cargo volume must be greater than zero.");
+                }
+
+                m_CargoVolume = value;
+            }
+        }
+
+        public Truck(Engine i_Engine, bool i_IsRefrigerated = false, float i_CargoVolume = 0) : base(i_Engine, i_NumberOfWheels: 14, i_MaxAirPressurePerWheel: 29.0f)
+        {
+            IsRefrigerated = i_IsRefrigerated;
             CargoVolume = i_CargoVolume;
         }
+
+        public override string ToString()
+        {
+            return $"{base.ToString()}, Refrigerated: {isRefrigerated()}, Cargo Volume: {m_CargoVolume} cubic meters";
+        }
+
+        private string isRefrigerated()
+        {
+            return m_IsRefrigerated ? "Yes" : "No";
+        }
     }
+
 }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 using Ex03.GarageLogic.Enums;
@@ -9,34 +10,48 @@ namespace Ex03.GarageLogic.Model
 {
     internal class Motorcycle : Vehicle
     {
-        protected eMotorcicleLicenceType LicenceType { get; }
-        protected int EngineVolumeInCC { get; }
+        private eMotorcicleLicenceType m_LicenseType;
+        private int m_EngineVolume;
 
-        public Motorcycle(
-            string i_ModelName,
-            string i_LicenseNumber,
-            List<Wheel> i_Wheels,
-            eMotorcicleLicenceType i_LicenceType,
-            eEnergyType i_EnergyType,
-            float i_EnergyMaxCapacity,
-            int i_EngineVolumeInCC, float i_CurrentEnergyAmount = 0) : base(i_ModelName, i_LicenseNumber, i_EnergyType, i_EnergyMaxCapacity, i_Wheels, i_CurrentEnergyAmount)
+        public eMotorcicleLicenceType LicenseType
         {
-            // Validate the licence type
-            if (!Enum.IsDefined(typeof(eMotorcicleLicenceType), i_LicenceType))
+            get { return m_LicenseType; }
+            set
             {
-                var allowedValues = string.Join(", ", Enum.GetValues(typeof(eMotorcicleLicenceType)).Cast<eMotorcicleLicenceType>());
-                throw new ArgumentException($"Invalid licence type. Allowed values are: {allowedValues}.");
-            }
+                if (!Enum.IsDefined(typeof(eMotorcicleLicenceType), value))
+                {
+                    throw new ArgumentException($"Invalid license type: {value}");
+                }
 
-            // Validate the engine volume
-            if (i_EngineVolumeInCC <= 0)
+                m_LicenseType = value;
+            }
+        }
+
+        public int EngineVolume
+        {
+            get { return m_EngineVolume; }
+            set
             {
-                throw new ArgumentException("Engine volume must be a positive value.");
-            }
+                if (value <= 0)
+                {
+                    throw new ArgumentException("Engine volume must be greater than zero.");
+                }
 
-            LicenceType = i_LicenceType;
-            EngineVolumeInCC = i_EngineVolumeInCC;
+                m_EngineVolume = value;
+            }
+        }
+
+        public Motorcycle(Engine i_Engine, eMotorcicleLicenceType i_LicenseType = eMotorcicleLicenceType.A1, int i_EngineVolume = 0) : base(i_Engine, i_NumberOfWheels: 2, i_MaxAirPressurePerWheel: 32.0f)
+        {
+            LicenseType = i_LicenseType;
+            EngineVolume = i_EngineVolume;
+        }
+
+        public override string ToString()
+        {
+            return $"{base.ToString()}, License Type: {m_LicenseType}, Engine Volume: {m_EngineVolume}cc";
         }
     }
+
 }
 

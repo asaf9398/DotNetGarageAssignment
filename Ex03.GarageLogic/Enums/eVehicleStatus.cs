@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace Ex03.GarageLogic.Enums
 {
-    public enum eEnergyType
+    public enum eVehicleStatus
     {
-        Octan95,
-        Octan96,
-        Octan98,   
-        Soler,
-        Electric
+        InRepair,
+        Repaired,
+        Paid
     }
 }

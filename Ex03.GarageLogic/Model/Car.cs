@@ -9,23 +9,40 @@ namespace Ex03.GarageLogic.Model
 {
     internal class Car : Vehicle
     {
-        // Protected properties
-        protected eCarColor Color { get; }
-        protected eNumberOfDoors NumberOfDoors { get; }
+        private eVehicleColor m_Color;
+        private eNumberOfDoors m_NumberOfDoors;
 
-        // Constructor
-        public Car(string i_ModelName, string i_LicenseNumber, eEnergyType i_EnergyType, List<Wheel> i_Wheels, float i_EnergyMaxCapacity, eCarColor i_Color, eNumberOfDoors i_NumberOfDoors, float i_CurrentEnergyAmount = 0) : base(i_ModelName, i_LicenseNumber, i_EnergyType, i_EnergyMaxCapacity, i_Wheels, i_CurrentEnergyAmount)
+        public eVehicleColor Color
         {
-            // Validate the number of doors
-            if (!Enum.IsDefined(typeof(eNumberOfDoors), i_NumberOfDoors))
+            get { return m_Color; }
+            set { m_Color = value; }
+        }
+
+        public eNumberOfDoors NumberOfDoors
+        {
+            get { return m_NumberOfDoors; }
+            set { m_NumberOfDoors = value; }
+        }
+
+        public Car(Engine i_Engine, eVehicleColor i_Color = eVehicleColor.Black, eNumberOfDoors i_NumberOfDoors = eNumberOfDoors.Four) : base(i_Engine, i_NumberOfWheels: 5, i_MaxAirPressurePerWheel: 34.0f)
+        {
+            if (!Enum.IsDefined(typeof(eVehicleColor), i_Color))
             {
-                // Dynamically generate the allowed values from the enum
-                var allowedValues = string.Join(", ", Enum.GetValues(typeof(eNumberOfDoors)).Cast<eNumberOfDoors>());
-                throw new ArgumentException($"Invalid number of doors. Allowed values are: {allowedValues}.");
+                throw new ArgumentException($"Invalid color value: {i_Color}");
             }
 
-            Color = i_Color;
-            NumberOfDoors = i_NumberOfDoors;
+            if (!Enum.IsDefined(typeof(eNumberOfDoors), i_NumberOfDoors))
+            {
+                throw new ArgumentException($"Invalid number of doors: {i_NumberOfDoors}");
+            }
+
+            m_Color = i_Color;
+            m_NumberOfDoors = i_NumberOfDoors;
+        }
+
+        public override string ToString()
+        {
+            return $"{base.ToString()}, Color: {m_Color}, Number of Doors: {(int)m_NumberOfDoors}";
         }
     }
 }

@@ -1,0 +1,83 @@
+# Build results
+bin/
+obj/
+out/
+
+# NuGet Packages
+*.nupkg
+# The following line will prevent NuGet from restoring packages
+# **/packages/*
+# Uncomment if necessary for CI tools that support only VCS-based packages restore
+#!**/packages/build/
+
+# Include only if you have source package files in 'packages' directory
+#!**/packages/**/*.*
+
+# Include these if you have MSBuild .props or .targets files in 'packages' directory
+#!**/packages/**/*.props
+#!**/packages/**/*.targets
+
+# Ignore web publish folders
+publish/
+*.PublishProfiles/
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Mono Auto Generated Files
+mono_crash.*
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# VS Code files
+.vscode/
+.history/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# Windows shortcuts
+*.lnk
+
+# DotNet specific
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# Entity Framework
+*.jfm
+
+# Rider
+.idea/
+*.sln.iml
+
+# Auto-generated AssemblyInfo files
+Generated\ AssemblyInfo.cs
+Generated\ Version.cs
+
+# NUnit
+*.TestResult.xml
+
+# Visual Studio 2019 and later
+.vs/
+
+# Local history for Visual Studio
+.vs/slnx.sqlite

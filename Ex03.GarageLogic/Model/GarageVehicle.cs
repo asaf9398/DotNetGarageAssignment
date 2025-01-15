@@ -9,8 +9,8 @@ namespace Ex03.GarageLogic.Model
     internal class GarageVehicle
     {
         private readonly Vehicle m_Vehicle;
-        private readonly string m_OwnerName;
-        private readonly string m_OwnerPhone;
+        private string m_OwnerName;
+        private string m_OwnerPhone;
         private eVehicleStatus m_Status;
 
         public Vehicle Vehicle
@@ -21,11 +21,13 @@ namespace Ex03.GarageLogic.Model
         public string OwnerName
         {
             get { return m_OwnerName; }
+            set { m_OwnerName = value; }
         }
 
         public string OwnerPhone
         {
             get { return m_OwnerPhone; }
+            set { m_OwnerPhone = value; }
         }
 
         public eVehicleStatus Status

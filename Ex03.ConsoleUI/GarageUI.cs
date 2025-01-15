@@ -1,31 +1,81 @@
-﻿using Ex03.GarageLogic.Enums;
+﻿using Ex03.ConsoleUI.Utils;
+using Ex03.GarageLogic.Enums;
 using Ex03.GarageLogic.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 
 namespace Ex03.ConsoleUI
 {
     internal static class GarageUI
     {
+        private static void getParametersInfo(ParameterInfo[] i_Parameters, object[] i_Arguments)
+        {
+            for (int i = 0; i < i_Parameters.Length; i++)
+            {
+                string paramName = StringUtils.RemovePrefixIfExists(i_Parameters[i].Name);
+                paramName = StringUtils.SplitCamelCase(paramName);
+                Console.WriteLine($"Enter {paramName} ({i_Parameters[i].ParameterType.Name}):");
+                string input = Console.ReadLine();
+                try
+                {
+                    if (i_Parameters[i].ParameterType.IsEnum)
+                    {
+                        i_Arguments[i] = Enum.Parse(i_Parameters[i].ParameterType, input, ignoreCase: true);
+                    }
+                    else
+                    {
+                        i_Arguments[i] = Convert.ChangeType(input, i_Parameters[i].ParameterType);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    string message = ex.Message;
+                    if (ex.InnerException != null)
+                    {
+                        message = ex.InnerException.Message;
+                    }
+                    Console.WriteLine($"Error: {message}");
+                    Console.WriteLine($"Please try again!");
+                    i--;
+                }
+            }
+        }
         public static void InvokeFunction(MethodInfo i_Method, Garage i_Garage)
         {
             ParameterInfo[] parameters = i_Method.GetParameters();
             object[] arguments = new object[parameters.Length];
-
+            //getParametersInfo(parameters, arguments);
             for (int i = 0; i < parameters.Length; i++)
             {
-                Console.WriteLine($"Enter {parameters[i].Name} ({parameters[i].ParameterType.Name}):");
+                string paramName = StringUtils.RemovePrefixIfExists(parameters[i].Name);
+                paramName = StringUtils.SplitCamelCase(paramName);
+                Console.WriteLine($"Enter {paramName} ({parameters[i].ParameterType.Name}):");
                 string input = Console.ReadLine();
-                if (parameters[i].ParameterType.IsEnum)
+                try
                 {
-                    arguments[i] = Enum.Parse(parameters[i].ParameterType, input, ignoreCase: true);
+                    if (parameters[i].ParameterType.IsEnum)
+                    {
+                        arguments[i] = Enum.Parse(parameters[i].ParameterType, input, ignoreCase: true);
+                    }
+                    else
+                    {
+                        arguments[i] = Convert.ChangeType(input, parameters[i].ParameterType);
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    arguments[i] = Convert.ChangeType(input, parameters[i].ParameterType);
+                    string message = ex.Message;
+                    if (ex.InnerException != null)
+                    {
+                        message = ex.InnerException.Message;
+                    }
+                    Console.WriteLine($"Error: {message}");
+                    Console.WriteLine($"Please try again!");
+                    i--;
                 }
             }
 
@@ -36,37 +86,65 @@ namespace Ex03.ConsoleUI
                 if (returnedValue is Vehicle)
                 {
                     Type vehicleType = returnedValue.GetType();
-                    PropertyInfo[] vehicleProperties = vehicleType.GetProperties();
+                    //PropertyInfo[] vehicleProperties = vehicleType.GetProperties();
+                    PropertyInfo[] vehicleProperties = vehicleType
+                     .GetProperties()
+                    .Where(p => p.GetSetMethod() != null) // רק מאפיינים עם set ציבורי
+                    .ToArray();
                     if (vehicleProperties != null)
                     {
                         for (int i = 0; i < vehicleProperties.Length; i++)
                         {
-                            Console.WriteLine($"Enter {vehicleProperties[i].Name} ({vehicleProperties[i].MemberType}):");
-                            string input = Console.ReadLine();
-                            if (vehicleProperties[i].PropertyType.IsEnum)
+                            try
                             {
-                                object inputAfterParsing = Enum.Parse(vehicleProperties[i].PropertyType, input, ignoreCase: true);
-                                vehicleProperties[i].SetValue(returnedValue, inputAfterParsing, null);
-                            }
-                            if (vehicleProperties[i].PropertyType is Int32)
-                            {
-                                Int32.TryParse("5423");
-                            }
-                            else//if string 
-                            {
-                                vehicleProperties[i].SetValue(returnedValue, input, null);
-                            }
+                                Console.WriteLine($"Enter {StringUtils.SplitCamelCase(vehicleProperties[i].Name)} ({vehicleProperties[i].PropertyType.Name}):");
+                                string input = Console.ReadLine();
+                                object convertedValue;
 
+                                if (vehicleProperties[i].PropertyType.IsEnum)
+                                {
+                                    convertedValue = Enum.Parse(vehicleProperties[i].PropertyType, input, ignoreCase: true);
+                                }
+                                else
+                                {
+                                    convertedValue = Convert.ChangeType(input, vehicleProperties[i].PropertyType);
+                                }
+                                vehicleProperties[i].SetValue(returnedValue, convertedValue, null);
+                            }
+                            catch (Exception ex)
+                            {
+                                string message = ex.Message;
+                                if (ex.InnerException != null)
+                                {
+                                    message = ex.InnerException.Message;
+                                }
+                                Console.WriteLine($"Error: {message}");
+                                Console.WriteLine($"Please try again!");
+                                i--;
+                            }
                         }
                     }
                 }
-
+                else if (returnedValue is List<string>)
+                {
+                    Console.WriteLine("Vehicles list:");
+                    List<string> currentStringList = (List<string>)returnedValue;
+                    foreach (var currentString in currentStringList)
+                    {
+                        Console.WriteLine($"{currentString}");
+                    }
+                }
 
                 Console.WriteLine("Operation completed successfully.");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error: {ex.Message}");
+                string message = ex.Message;
+                if (ex.InnerException != null)
+                {
+                    message = ex.InnerException.Message;
+                }
+                Console.WriteLine($"Error: {message}");
             }
         }
 

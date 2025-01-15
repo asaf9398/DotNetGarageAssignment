@@ -14,6 +14,7 @@ namespace Ex03.GarageLogic.Model
         public eFuelType FuelType
         {
             get { return m_FuelType; }
+            set { m_FuelType = value; }
         }
 
         public FuelEngine(eFuelType i_FuelType = eFuelType.Octan95, float i_MaxEnergy = 0)

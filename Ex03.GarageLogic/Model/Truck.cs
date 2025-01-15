@@ -9,6 +9,8 @@ namespace Ex03.GarageLogic.Model
 {
     internal class Truck : Vehicle
     {
+        private const int k_NumberOfWheels = 14;
+        private const float k_MaxAirPressurePerWheel = 29.0f;
         private bool m_IsRefrigerated;
         private float m_CargoVolume;
 
@@ -32,7 +34,7 @@ namespace Ex03.GarageLogic.Model
             }
         }
 
-        public Truck(Engine i_Engine, bool i_IsRefrigerated = false, float i_CargoVolume = 0) : base(i_Engine, i_NumberOfWheels: 14, i_MaxAirPressurePerWheel: 29.0f)
+        public Truck(Engine i_Engine, bool i_IsRefrigerated = false, float i_CargoVolume = 0) : base(i_Engine, i_NumberOfWheels: k_NumberOfWheels, i_MaxAirPressurePerWheel: k_MaxAirPressurePerWheel)
         {
             IsRefrigerated = i_IsRefrigerated;
             CargoVolume = i_CargoVolume;

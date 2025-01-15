@@ -21,6 +21,7 @@ namespace Ex03.GarageLogic.Model
         public float CurrentAirPressure
         {
             get { return m_CurrentAirPressure; }
+            set { m_CurrentAirPressure = value; }
         }
         public string ManufacturerName { get { return m_ManufacturerName; } }
 

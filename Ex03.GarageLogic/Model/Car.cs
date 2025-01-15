@@ -11,6 +11,8 @@ namespace Ex03.GarageLogic.Model
     {
         private eVehicleColor m_Color;
         private eNumberOfDoors m_NumberOfDoors;
+        private const int k_NumberOfWheels = 5;
+        private const float k_MaxAirPressurePerWheel = 34.0f;
 
         public eVehicleColor Color
         {
@@ -24,7 +26,7 @@ namespace Ex03.GarageLogic.Model
             set { m_NumberOfDoors = value; }
         }
 
-        public Car(Engine i_Engine, eVehicleColor i_Color = eVehicleColor.Black, eNumberOfDoors i_NumberOfDoors = eNumberOfDoors.Four) : base(i_Engine, i_NumberOfWheels: 5, i_MaxAirPressurePerWheel: 34.0f)
+        public Car(Engine i_Engine, eVehicleColor i_Color = eVehicleColor.Black, eNumberOfDoors i_NumberOfDoors = eNumberOfDoors.Four) : base(i_Engine, i_NumberOfWheels: k_NumberOfWheels, i_MaxAirPressurePerWheel: k_MaxAirPressurePerWheel)
         {
             if (!Enum.IsDefined(typeof(eVehicleColor), i_Color))
             {

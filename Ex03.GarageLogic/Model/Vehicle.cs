@@ -1,4 +1,5 @@
 ﻿using Ex03.GarageLogic.Enums;
+using Ex03.GarageLogic.Exceptions;
 using System.Collections.Generic;
 using System.Runtime.Remoting.Messaging;
 
@@ -7,7 +8,6 @@ namespace Ex03.GarageLogic.Model
     public abstract class Vehicle
     {
         private string m_ModelName;
-        private string m_LicenseNumber;
         private List<Wheel> m_Wheels;
         private Engine m_Engine;
 
@@ -17,12 +17,31 @@ namespace Ex03.GarageLogic.Model
             set { m_ModelName = value; }
         }
 
-        public string LicenseNumber
+        public float CurrentWheelsAir
         {
-            get { return m_LicenseNumber; }
-            set { m_LicenseNumber = value; }
+            set
+            {
+                foreach (Wheel wheel in m_Wheels)
+                {
+                    if (value <= wheel.MaxAirPressure)
+                    {
+                        wheel.CurrentAirPressure = value;
+                    }
+                    else
+                    {
+                        throw new ValueOutOfRangeException(0, wheel.MaxAirPressure, $"Air pressure exceeds maximum limit.(0 to {wheel.MaxAirPressure})");
+                    }
+                }
+            }
+            get
+            {
+                return m_Wheels[0].CurrentAirPressure;
+            }
         }
-
+        public float MaxWheelsAir
+        {
+            get { return m_Wheels[0].MaxAirPressure; }
+        }
         public List<Wheel> Wheels
         {
             get { return m_Wheels; }
@@ -31,7 +50,7 @@ namespace Ex03.GarageLogic.Model
         public Engine Engine
         {
             get { return m_Engine; }
-            set { m_Engine = value; }
+            private set { m_Engine = value; }
         }
 
         public float GetEnergyPercentage()
@@ -60,7 +79,7 @@ namespace Ex03.GarageLogic.Model
 
         public override string ToString()
         {
-            return $"Model Name: {m_ModelName}, License Number: {m_LicenseNumber}, Energy Percentage: {GetEnergyPercentage()}%";
+            return $"Model Name: {m_ModelName}, Energy Percentage: {GetEnergyPercentage()}%";
         }
     }
 

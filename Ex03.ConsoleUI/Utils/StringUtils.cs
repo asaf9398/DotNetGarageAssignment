@@ -7,6 +7,18 @@ namespace Ex03.ConsoleUI.Utils
 {
     internal static class StringUtils
     {
+        public static string RemovePrefixIfExists(string input)
+        {
+            const string k_Prefix = "i_";
+
+            if (input.StartsWith(k_Prefix))
+            {
+                return input.Substring(k_Prefix.Length);
+            }
+
+            return input;
+        }
+
         public static string SplitCamelCase(string i_Input)
         {
             if (string.IsNullOrEmpty(i_Input))

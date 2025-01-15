@@ -34,6 +34,7 @@ namespace Ex03.ConsoleUI
 
             while (!exitRequested)
             {
+                Console.Clear();
                 DisplayMenuOptions();
                 Console.WriteLine("Select an option:");
                 string userChoice = Console.ReadLine();
@@ -51,6 +52,9 @@ namespace Ex03.ConsoleUI
                 {
                     Console.WriteLine("Invalid option. Please try again.");
                 }
+
+                Console.WriteLine("Press Enter to continue...");
+                Console.ReadLine();
             }
         }
 

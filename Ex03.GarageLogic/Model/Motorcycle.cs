@@ -10,6 +10,8 @@ namespace Ex03.GarageLogic.Model
 {
     internal class Motorcycle : Vehicle
     {
+        private const int k_NumberOfWheels = 2;
+        private const float k_MaxAirPressurePerWheel = 32.0f;
         private eMotorcicleLicenceType m_LicenseType;
         private int m_EngineVolume;
 
@@ -41,7 +43,7 @@ namespace Ex03.GarageLogic.Model
             }
         }
 
-        public Motorcycle(Engine i_Engine, eMotorcicleLicenceType i_LicenseType = eMotorcicleLicenceType.A1, int i_EngineVolume = 0) : base(i_Engine, i_NumberOfWheels: 2, i_MaxAirPressurePerWheel: 32.0f)
+        public Motorcycle(Engine i_Engine, eMotorcicleLicenceType i_LicenseType = eMotorcicleLicenceType.A1, int i_EngineVolume = 0) : base(i_Engine, i_NumberOfWheels: k_NumberOfWheels, i_MaxAirPressurePerWheel: k_MaxAirPressurePerWheel)
         {
             LicenseType = i_LicenseType;
             EngineVolume = i_EngineVolume;

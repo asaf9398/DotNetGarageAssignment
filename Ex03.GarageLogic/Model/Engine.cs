@@ -3,7 +3,7 @@ using Ex03.GarageLogic.Enums;
 
 namespace Ex03.GarageLogic.Model
 {
-    internal abstract class Engine
+    public abstract class Engine
     {
         protected float m_CurrentEnergy;
         protected float m_MaxEnergy;

@@ -4,7 +4,7 @@ using System.Runtime.Remoting.Messaging;
 
 namespace Ex03.GarageLogic.Model
 {
-    internal abstract class Vehicle
+    public abstract class Vehicle
     {
         private string m_ModelName;
         private string m_LicenseNumber;
@@ -39,7 +39,7 @@ namespace Ex03.GarageLogic.Model
             return (m_Engine.CurrentEnergy / m_Engine.MaxEnergy) * 100;
         }
 
-        protected Vehicle(Engine i_Engine, int i_NumberOfWheels, float i_MaxAirPressurePerWheel)
+        public Vehicle(Engine i_Engine, int i_NumberOfWheels, float i_MaxAirPressurePerWheel)
         {
             Engine = i_Engine;
             m_Wheels = new List<Wheel>(i_NumberOfWheels);

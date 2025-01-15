@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Ex03.GarageLogic.Model
 {
-    internal class Wheel
+    public class Wheel
     {
         private string m_ManufacturerName;
         private float m_CurrentAirPressure;
@@ -22,6 +22,7 @@ namespace Ex03.GarageLogic.Model
         {
             get { return m_CurrentAirPressure; }
         }
+        public string ManufacturerName { get { return m_ManufacturerName; } }
 
 
         public Wheel(string i_ManufacturerName, float i_MaxAirPressure, float i_InitializeAirPressure = 0)

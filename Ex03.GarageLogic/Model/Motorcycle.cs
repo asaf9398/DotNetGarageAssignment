@@ -32,7 +32,7 @@ namespace Ex03.GarageLogic.Model
             get { return m_EngineVolume; }
             set
             {
-                if (value <= 0)
+                if (value < 0)
                 {
                     throw new ArgumentException("Engine volume must be greater than zero.");
                 }

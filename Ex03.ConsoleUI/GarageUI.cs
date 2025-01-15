@@ -19,12 +19,49 @@ namespace Ex03.ConsoleUI
             {
                 Console.WriteLine($"Enter {parameters[i].Name} ({parameters[i].ParameterType.Name}):");
                 string input = Console.ReadLine();
-                arguments[i] = Convert.ChangeType(input, parameters[i].ParameterType);
+                if (parameters[i].ParameterType.IsEnum)
+                {
+                    arguments[i] = Enum.Parse(parameters[i].ParameterType, input, ignoreCase: true);
+                }
+                else
+                {
+                    arguments[i] = Convert.ChangeType(input, parameters[i].ParameterType);
+                }
             }
 
             try
             {
-                i_Method.Invoke(i_Garage, arguments);
+                object returnedValue = i_Method.Invoke(i_Garage, arguments);
+
+                if (returnedValue is Vehicle)
+                {
+                    Type vehicleType = returnedValue.GetType();
+                    PropertyInfo[] vehicleProperties = vehicleType.GetProperties();
+                    if (vehicleProperties != null)
+                    {
+                        for (int i = 0; i < vehicleProperties.Length; i++)
+                        {
+                            Console.WriteLine($"Enter {vehicleProperties[i].Name} ({vehicleProperties[i].MemberType}):");
+                            string input = Console.ReadLine();
+                            if (vehicleProperties[i].PropertyType.IsEnum)
+                            {
+                                object inputAfterParsing = Enum.Parse(vehicleProperties[i].PropertyType, input, ignoreCase: true);
+                                vehicleProperties[i].SetValue(returnedValue, inputAfterParsing, null);
+                            }
+                            if (vehicleProperties[i].PropertyType is Int32)
+                            {
+                                Int32.TryParse("5423");
+                            }
+                            else//if string 
+                            {
+                                vehicleProperties[i].SetValue(returnedValue, input, null);
+                            }
+
+                        }
+                    }
+                }
+
+
                 Console.WriteLine("Operation completed successfully.");
             }
             catch (Exception ex)
@@ -32,6 +69,20 @@ namespace Ex03.ConsoleUI
                 Console.WriteLine($"Error: {ex.Message}");
             }
         }
+
+        public static void GetParamsInput(object i_Object)
+        {
+            Type vehicleType = i_Object.GetType();
+            PropertyInfo[] objectProperties = vehicleType.GetProperties();
+            for (int i = 0; i < objectProperties.Length; i++)
+            {
+                Console.WriteLine($"Enter {objectProperties[i].Name} ({objectProperties[i].Name}):");
+                string input = Console.ReadLine();
+                objectProperties[i].SetValue(i_Object, input, null);
+            }
+
+        }
+
 
         //public static void AddVehicleUI(Garage i_Garage)
         //{

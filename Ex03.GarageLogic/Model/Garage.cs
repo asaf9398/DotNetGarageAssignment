@@ -1,4 +1,6 @@
 ﻿using Ex03.GarageLogic.Enums;
+using Ex03.GarageLogic.Exceptions;
+using Ex03.GarageLogic.Factory;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,12 +11,29 @@ namespace Ex03.GarageLogic.Model
 {
     public class Garage
     {
-        private readonly Dictionary<string, GarageVehicle> m_Vehicles;
+        private Dictionary<string, GarageVehicle> m_Vehicles;
 
         public Garage()
         {
             m_Vehicles = new Dictionary<string, GarageVehicle>();
         }
+
+        public Vehicle AddVehicleToGarage(string i_LicenseNumber, string i_OwnerName, string i_OwnerPhone, eVehicleType i_VehicleType)
+        {
+            if (m_Vehicles.ContainsKey(i_LicenseNumber))
+            {
+                m_Vehicles[i_LicenseNumber].Status = eVehicleStatus.InRepair;
+                throw new VehicleAlreadyInGarageException($"The vehicle with the plate: {i_LicenseNumber} is already in the garage!{Environment.NewLine}The vehicle status changed to \"In Repair\"");
+            }
+            else
+            {
+                Vehicle vehicle = VehicleFactory.CreateVehicle(i_VehicleType);
+                GarageVehicle newGarageVehicle = new GarageVehicle(vehicle, i_OwnerName, i_OwnerPhone);
+                m_Vehicles.Add(i_LicenseNumber,newGarageVehicle);
+                return vehicle;
+            }
+        }
+
 
         public bool AddVehicle(Vehicle i_Vehicle, string i_OwnerName, string i_OwnerPhone)
         {

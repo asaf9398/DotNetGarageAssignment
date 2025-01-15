@@ -23,7 +23,6 @@ namespace Ex03.ConsoleUI
         {
             bool exitRequested = false;
 
-            // רשימה מסוננת של הפונקציות שיוצגו למשתמש
             List<MethodInfo> filteredMethods = new List<MethodInfo>();
             foreach (MethodInfo method in m_Methods)
             {
@@ -44,7 +43,7 @@ namespace Ex03.ConsoleUI
                     MethodInfo selectedMethod = filteredMethods[option - 1];
                     GarageUI.InvokeFunction(selectedMethod, m_Garage);
                 }
-                else if (option == filteredMethods.Count + 1) // Exit option
+                else if (option == filteredMethods.Count + 1)
                 {
                     exitRequested = true;
                 }
@@ -64,7 +63,6 @@ namespace Ex03.ConsoleUI
             int optionIndex = 1;
             foreach (MethodInfo method in m_Methods)
             {
-                // סינון פונקציות שיורשות מ-Object
                 if (method.DeclaringType != typeof(object))
                 {
                     Console.WriteLine($"{optionIndex}. {StringUtils.SplitCamelCase(method.Name)}");

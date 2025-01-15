@@ -9,9 +9,17 @@ using Ex03.GarageLogic.Model;
 
 namespace Ex03.ConsoleUI
 {
-    class Program
+    class ProgramTest
     {
-        public static void Main(string[] args)
+        public class Program
+        {
+            public static void Main(string[] args)
+            {
+                MainMenu menu = new MainMenu();
+                menu.Run();
+            }
+        }
+        public static void Main2(string[] args)
         {
             Garage garage = new Garage();
             MethodInfo[] methods = typeof(Garage).GetMethods();

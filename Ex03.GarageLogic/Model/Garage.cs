@@ -125,46 +125,46 @@ namespace Ex03.GarageLogic.Model
 
             return garageVehicleProperties.Concat(vehicleProperties).ToArray();
 
-            StringBuilder detailsBuilder = new StringBuilder();
-            detailsBuilder.AppendLine($"License Number: {vehicle.LicenseNumber}");
-            detailsBuilder.AppendLine($"Model Name: {vehicle.ModelName}");
-            detailsBuilder.AppendLine($"Owner Name: {garageVehicle.OwnerName}");
-            detailsBuilder.AppendLine($"Owner Phone: {garageVehicle.OwnerPhone}");
-            detailsBuilder.AppendLine($"Vehicle Status: {garageVehicle.Status}");
-
-            detailsBuilder.AppendLine("Wheels:");
-            foreach (Wheel wheel in vehicle.Wheels)
-            {
-                detailsBuilder.AppendLine($"   Manufacturer: {wheel.ManufacturerName}, Air Pressure: {wheel.CurrentAirPressure}/{wheel.MaxAirPressure}");
-            }
-
-            if (vehicle.Engine is FuelEngine fuelEngine)
-            {
-                detailsBuilder.AppendLine($"Fuel Type: {fuelEngine.FuelType}");
-                detailsBuilder.AppendLine($"Fuel Level: {fuelEngine.CurrentEnergy}/{fuelEngine.MaxEnergy}");
-            }
-            else if (vehicle.Engine is ElectricEngine electricEngine)
-            {
-                detailsBuilder.AppendLine($"Battery Level: {electricEngine.CurrentEnergy}/{electricEngine.MaxEnergy}");
-            }
-
-            if (vehicle is Car car)
-            {
-                detailsBuilder.AppendLine($"Color: {car.Color}");
-                detailsBuilder.AppendLine($"Number of Doors: {car.NumberOfDoors}");
-            }
-            else if (vehicle is Motorcycle motorcycle)
-            {
-                detailsBuilder.AppendLine($"License Type: {motorcycle.LicenseType}");
-                detailsBuilder.AppendLine($"Engine Volume: {motorcycle.EngineVolume}");
-            }
-            else if (vehicle is Truck truck)
-            {
-                detailsBuilder.AppendLine($"Refrigerated: {(truck.IsRefrigerated ? "Yes" : "No")}");
-                detailsBuilder.AppendLine($"Cargo Volume: {truck.CargoVolume}");
-            }
-
-            return detailsBuilder.ToString();
+            //StringBuilder detailsBuilder = new StringBuilder();
+            //detailsBuilder.AppendLine($"License Number: {vehicle.LicenseNumber}");
+            //detailsBuilder.AppendLine($"Model Name: {vehicle.ModelName}");
+            //detailsBuilder.AppendLine($"Owner Name: {garageVehicle.OwnerName}");
+            //detailsBuilder.AppendLine($"Owner Phone: {garageVehicle.OwnerPhone}");
+            //detailsBuilder.AppendLine($"Vehicle Status: {garageVehicle.Status}");
+            //
+            //detailsBuilder.AppendLine("Wheels:");
+            //foreach (Wheel wheel in vehicle.Wheels)
+            //{
+            //    detailsBuilder.AppendLine($"   Manufacturer: {wheel.ManufacturerName}, Air Pressure: {wheel.CurrentAirPressure}/{wheel.MaxAirPressure}");
+            //}
+            //
+            //if (vehicle.Engine is FuelEngine fuelEngine)
+            //{
+            //    detailsBuilder.AppendLine($"Fuel Type: {fuelEngine.FuelType}");
+            //    detailsBuilder.AppendLine($"Fuel Level: {fuelEngine.CurrentEnergy}/{fuelEngine.MaxEnergy}");
+            //}
+            //else if (vehicle.Engine is ElectricEngine electricEngine)
+            //{
+            //    detailsBuilder.AppendLine($"Battery Level: {electricEngine.CurrentEnergy}/{electricEngine.MaxEnergy}");
+            //}
+            //
+            //if (vehicle is Car car)
+            //{
+            //    detailsBuilder.AppendLine($"Color: {car.Color}");
+            //    detailsBuilder.AppendLine($"Number of Doors: {car.NumberOfDoors}");
+            //}
+            //else if (vehicle is Motorcycle motorcycle)
+            //{
+            //    detailsBuilder.AppendLine($"License Type: {motorcycle.LicenseType}");
+            //    detailsBuilder.AppendLine($"Engine Volume: {motorcycle.EngineVolume}");
+            //}
+            //else if (vehicle is Truck truck)
+            //{
+            //    detailsBuilder.AppendLine($"Refrigerated: {(truck.IsRefrigerated ? "Yes" : "No")}");
+            //    detailsBuilder.AppendLine($"Cargo Volume: {truck.CargoVolume}");
+            //}
+            //
+            //return detailsBuilder.ToString();
         }
     }
 }

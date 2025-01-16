@@ -8,7 +8,6 @@ using System.Text;
 
 namespace Ex03.GarageLogic.Factory
 {
-
     internal static class VehicleFactory
     {
         private const eFuelType k_MotorcycleFuelType = eFuelType.Octan98;
@@ -42,6 +41,7 @@ namespace Ex03.GarageLogic.Factory
                 default:
                     throw new ArgumentException($"Vehicle type '{i_VehicleType}' is not supported.");
             }
+
             return vehicle;
         }
     }

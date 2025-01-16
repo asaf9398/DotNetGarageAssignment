@@ -1,6 +1,7 @@
 ﻿using Ex03.GarageLogic.Enums;
 using Ex03.GarageLogic.Exceptions;
 using Ex03.GarageLogic.Factory;
+using Ex03.GarageLogic.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,24 +34,6 @@ namespace Ex03.GarageLogic.Model
                 return vehicle;
             }
         }
-
-
-        // public bool AddVehicle(Vehicle i_Vehicle, string i_OwnerName, string i_OwnerPhone)
-        // {
-        //     bool hasBeenAdded = false;
-        //
-        //     if (m_Vehicles.ContainsKey(i_Vehicle.LicenseNumber))
-        //     {
-        //         m_Vehicles[i_Vehicle.LicenseNumber].Status = eVehicleStatus.InRepair;
-        //         hasBeenAdded = false;
-        //     }
-        //     else
-        //     {
-        //         m_Vehicles.Add(i_Vehicle.LicenseNumber, new GarageVehicle(i_Vehicle, i_OwnerName, i_OwnerPhone));
-        //         hasBeenAdded = true;
-        //     }
-        //     return hasBeenAdded;
-        // }
 
         public List<string> DisplayVehicles(eVehicleStatus i_Filter)
         {
@@ -132,23 +115,10 @@ namespace Ex03.GarageLogic.Model
                 throw new ArgumentException($"Vehicle with license number {i_LicenseNumber} not found.");
             }
 
-            // GarageVehicle garageVehicle = m_Vehicles[i_LicenseNumber];
-            // Vehicle vehicle = garageVehicle.Vehicle;
-            //
-            // Type garageVehicleType = garageVehicle.GetType();
-            // PropertyInfo[] garageVehicleProperties = garageVehicleType.GetProperties();
-            //
-            // Type vehicleType = garageVehicle.Vehicle.GetType();
-            // PropertyInfo[] vehicleProperties = vehicleType.GetProperties();
-
-
-            Type vehicleType = m_Vehicles[i_LicenseNumber].GetType();
-            PropertyInfo[] vehicleProperties = vehicleType
-             .GetProperties()
-            .Where(p => p.GetSetMethod() != null) // רק מאפיינים עם set ציבורי
-            .ToArray();
+            PropertyInfo[] vehicleProperties = ReflectionHelper.GetPropertiesFromObject(m_Vehicles[i_LicenseNumber]);
             List<string> propertiesList = new List<string>();
             propertiesList.Add($"License Number ({i_LicenseNumber})");
+            
             if (vehicleProperties != null)
             {
                 for (int i = 0; i < vehicleProperties.Length; i++)
@@ -164,11 +134,8 @@ namespace Ex03.GarageLogic.Model
                 }
             }
 
-            vehicleType = m_Vehicles[i_LicenseNumber].Vehicle.GetType();
-            vehicleProperties = vehicleType
-             .GetProperties()
-            .Where(p => p.GetSetMethod() != null) // רק מאפיינים עם set ציבורי
-            .ToArray();
+            vehicleProperties = ReflectionHelper.GetPropertiesFromObject(m_Vehicles[i_LicenseNumber].Vehicle);
+
             if (vehicleProperties != null)
             {
                 for (int i = 0; i < vehicleProperties.Length; i++)
@@ -184,11 +151,8 @@ namespace Ex03.GarageLogic.Model
                 }
             }
 
-            vehicleType = m_Vehicles[i_LicenseNumber].Vehicle.Engine.GetType();
-            vehicleProperties = vehicleType
-             .GetProperties()
-            .Where(p => p.GetSetMethod() != null) // רק מאפיינים עם set ציבורי
-            .ToArray();
+            vehicleProperties = ReflectionHelper.GetPropertiesFromObject(m_Vehicles[i_LicenseNumber].Vehicle.Engine);
+
             if (vehicleProperties != null)
             {
                 for (int i = 0; i < vehicleProperties.Length; i++)
@@ -207,46 +171,6 @@ namespace Ex03.GarageLogic.Model
 
             return propertiesList;
         }
-        //StringBuilder detailsBuilder = new StringBuilder();
-        //detailsBuilder.AppendLine($"License Number: {vehicle.LicenseNumber}");
-        //detailsBuilder.AppendLine($"Model Name: {vehicle.ModelName}");
-        //detailsBuilder.AppendLine($"Owner Name: {garageVehicle.OwnerName}");
-        //detailsBuilder.AppendLine($"Owner Phone: {garageVehicle.OwnerPhone}");
-        //detailsBuilder.AppendLine($"Vehicle Status: {garageVehicle.Status}");
-        //
-        //detailsBuilder.AppendLine("Wheels:");
-        //foreach (Wheel wheel in vehicle.Wheels)
-        //{
-        //    detailsBuilder.AppendLine($"   Manufacturer: {wheel.ManufacturerName}, Air Pressure: {wheel.CurrentAirPressure}/{wheel.MaxAirPressure}");
-        //}
-        //
-        //if (vehicle.Engine is FuelEngine fuelEngine)
-        //{
-        //    detailsBuilder.AppendLine($"Fuel Type: {fuelEngine.FuelType}");
-        //    detailsBuilder.AppendLine($"Fuel Level: {fuelEngine.CurrentEnergy}/{fuelEngine.MaxEnergy}");
-        //}
-        //else if (vehicle.Engine is ElectricEngine electricEngine)
-        //{
-        //    detailsBuilder.AppendLine($"Battery Level: {electricEngine.CurrentEnergy}/{electricEngine.MaxEnergy}");
-        //}
-        //
-        //if (vehicle is Car car)
-        //{
-        //    detailsBuilder.AppendLine($"Color: {car.Color}");
-        //    detailsBuilder.AppendLine($"Number of Doors: {car.NumberOfDoors}");
-        //}
-        //else if (vehicle is Motorcycle motorcycle)
-        //{
-        //    detailsBuilder.AppendLine($"License Type: {motorcycle.LicenseType}");
-        //    detailsBuilder.AppendLine($"Engine Volume: {motorcycle.EngineVolume}");
-        //}
-        //else if (vehicle is Truck truck)
-        //{
-        //    detailsBuilder.AppendLine($"Refrigerated: {(truck.IsRefrigerated ? "Yes" : "No")}");
-        //    detailsBuilder.AppendLine($"Cargo Volume: {truck.CargoVolume}");
-        //}
-        //
-        //return detailsBuilder.ToString();
     }
 }
 

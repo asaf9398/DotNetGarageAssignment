@@ -32,8 +32,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="GarageUI.cs" />
-    <Compile Include="MainMenu.cs" />
+    <Compile Include="View\GarageUIInvoker.cs" />
+    <Compile Include="View\MainMenu.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Utils\ReflectionHelper.cs" />
     <Compile Include="Utils\StringUtils.cs" />
@@ -44,8 +44,6 @@
       <Name>Ex03.GarageLogic</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="View\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

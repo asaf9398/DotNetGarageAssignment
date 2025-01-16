@@ -7,16 +7,14 @@ namespace Ex03.ConsoleUI.Utils
 {
     internal static class StringUtils
     {
-        public static string RemovePrefixIfExists(string input)
+        public static string RemovePrefixIfExists(string i_Input, string i_Prefix)
         {
-            const string k_Prefix = "i_";
-
-            if (input.StartsWith(k_Prefix))
+            if (i_Input.StartsWith(i_Prefix))
             {
-                return input.Substring(k_Prefix.Length);
+                return i_Input.Substring(i_Prefix.Length);
             }
 
-            return input;
+            return i_Input;
         }
 
         public static string SplitCamelCase(string i_Input)
@@ -39,6 +37,20 @@ namespace Ex03.ConsoleUI.Utils
             }
 
             return result.ToString();
+        }
+
+        public static string EnumOptionsToString(Type i_ParameterType)
+        {
+            Array enumValues = Enum.GetValues(i_ParameterType);
+            StringBuilder sb = new StringBuilder();
+
+            foreach (var enumValue in enumValues)
+            {
+                sb.Append(enumValue.ToString());
+                sb.Append(", ");
+            }
+
+            return sb.ToString();
         }
     }
 }

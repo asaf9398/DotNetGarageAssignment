@@ -23,16 +23,6 @@ namespace Ex03.GarageLogic.Model
             m_MaxEnergy = i_MaxEnergy;
             m_CurrentEnergy = 0;
         }
-
-        public override void Refill(float i_Amount)
-        {
-            if (m_CurrentEnergy + i_Amount > m_MaxEnergy || i_Amount < 0)
-            {
-                throw new ValueOutOfRangeException(0, m_MaxEnergy, "Fuel amount illegal or exceeds tank capacity.");
-            }
-
-            m_CurrentEnergy += i_Amount;
-        }
     }
 
 }

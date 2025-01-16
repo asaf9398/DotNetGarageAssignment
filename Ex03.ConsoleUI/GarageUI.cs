@@ -53,7 +53,24 @@ namespace Ex03.ConsoleUI
             {
                 string paramName = StringUtils.RemovePrefixIfExists(parameters[i].Name);
                 paramName = StringUtils.SplitCamelCase(paramName);
-                Console.WriteLine($"Enter {paramName} ({parameters[i].ParameterType.Name}):");
+                string paramType = "";
+                if (parameters[i].ParameterType.IsEnum)
+                {
+                    Array enumValues = Enum.GetValues(parameters[i].ParameterType);
+                    StringBuilder sb = new StringBuilder();
+                    foreach (var enumValue in enumValues)
+                    {
+                        sb.Append(enumValue.ToString());
+                        sb.Append(", ");
+                    }
+                    paramType = sb.ToString();
+                }
+                else
+                {
+                    paramType = parameters[i].ParameterType.Name;
+                }
+
+                Console.WriteLine($"Enter {paramName} ({paramType}):");
                 string input = Console.ReadLine();
                 try
                 {
@@ -97,7 +114,23 @@ namespace Ex03.ConsoleUI
                         {
                             try
                             {
-                                Console.WriteLine($"Enter {StringUtils.SplitCamelCase(vehicleProperties[i].Name)} ({vehicleProperties[i].PropertyType.Name}):");
+                                string paramType = "";
+                                if (vehicleProperties[i].PropertyType.IsEnum)
+                                {
+                                    Array enumValues = Enum.GetValues(vehicleProperties[i].PropertyType);
+                                    StringBuilder sb = new StringBuilder();
+                                    foreach (var enumValue in enumValues)
+                                    {
+                                        sb.Append(enumValue.ToString());
+                                        sb.Append(", ");
+                                    }
+                                    paramType = sb.ToString();
+                                }
+                                else
+                                {
+                                    paramType = vehicleProperties[i].PropertyType.Name;
+                                }
+                                Console.WriteLine($"Enter {StringUtils.SplitCamelCase(vehicleProperties[i].Name)} ({paramType}):");
                                 string input = Console.ReadLine();
                                 object convertedValue;
 

@@ -36,7 +36,7 @@ namespace Ex03.GarageLogic.Model
         {
             if (m_CurrentAirPressure + i_PressureToAdd > m_MaxAirPressure || i_PressureToAdd < 0)
             {
-                throw new ValueOutOfRangeException(0, m_MaxAirPressure, "Air pressure exceeds maximum limit.");
+                throw new ValueOutOfRangeException(0, m_MaxAirPressure, $"Air pressure is not valid(0 to {m_MaxAirPressure}).");
             }
 
             m_CurrentAirPressure += i_PressureToAdd;

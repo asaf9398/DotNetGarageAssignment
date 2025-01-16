@@ -19,41 +19,5 @@ namespace Ex03.ConsoleUI
                 menu.Run();
             }
         }
-        public static void Main2(string[] args)
-        {
-            Garage garage = new Garage();
-            MethodInfo[] methods = typeof(Garage).GetMethods();
-            int counter = 1;
-            Console.WriteLine($"Please enter the wanted funcionallity you want to do:");
-            foreach (MethodInfo method in methods)
-            {
-                if (IsUserDefinedMethod(method))
-                {
-                    Console.WriteLine($"{counter}) {method.Name}");
-                    counter++;
-                }
-            }
-            Console.ReadLine();
-        }
-        public static bool IsUserDefinedMethod(MethodInfo method)
-        {
-            if (method.IsSpecialName)
-            {
-                return false;
-            }
-
-            if (method.DeclaringType.Assembly.FullName.Contains("System.Private.CoreLib") ||
-                method.DeclaringType.Assembly.FullName.Contains("mscorlib"))
-            {
-                return false;
-            }
-
-            if (method.GetBaseDefinition().DeclaringType == typeof(object))
-            {
-                return false;
-            }
-
-            return true;
-        }
     }
 }

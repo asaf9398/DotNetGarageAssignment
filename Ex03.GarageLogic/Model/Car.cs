@@ -23,7 +23,15 @@ namespace Ex03.GarageLogic.Model
         public eNumberOfDoors NumberOfDoors
         {
             get { return m_NumberOfDoors; }
-            set { m_NumberOfDoors = value; }
+            set
+            {
+                if (!Enum.IsDefined(typeof(eNumberOfDoors), value))
+                {
+                    throw new ArgumentException($"Invalid number of doors: {value}");
+                }
+
+                m_NumberOfDoors = value;
+            }
         }
 
         public Car(Engine i_Engine, eVehicleColor i_Color = eVehicleColor.Black, eNumberOfDoors i_NumberOfDoors = eNumberOfDoors.Four) : base(i_Engine, i_NumberOfWheels: k_NumberOfWheels, i_MaxAirPressurePerWheel: k_MaxAirPressurePerWheel)

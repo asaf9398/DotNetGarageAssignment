@@ -23,13 +23,13 @@ namespace Ex03.GarageLogic.Model
             {
                 foreach (Wheel wheel in m_Wheels)
                 {
-                    if (value <= wheel.MaxAirPressure)
+                    if (value <= wheel.MaxAirPressure && value >= 0)
                     {
                         wheel.CurrentAirPressure = value;
                     }
                     else
                     {
-                        throw new ValueOutOfRangeException(0, wheel.MaxAirPressure, $"Air pressure exceeds maximum limit.(0 to {wheel.MaxAirPressure})");
+                        throw new ValueOutOfRangeException(0, wheel.MaxAirPressure, $"Air pressure not in limits(0 to {wheel.MaxAirPressure}).");
                     }
                 }
             }

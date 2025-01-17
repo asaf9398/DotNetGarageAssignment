@@ -21,6 +21,7 @@ namespace Ex03.GarageLogic.Factory
         public static Vehicle CreateVehicle(eVehicleType i_VehicleType)
         {
             Vehicle vehicle = null;
+
             switch (i_VehicleType)
             {
                 case eVehicleType.Motorcycle:

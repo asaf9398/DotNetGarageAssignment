@@ -58,7 +58,6 @@ namespace Ex03.ConsoleUI
 
         private void DisplayMenuOptions()
         {
-            Console.WriteLine();
             Console.WriteLine("Garage Management System - Main Menu:");
 
             int optionIndex = 1;

@@ -27,7 +27,7 @@ namespace Ex03.GarageLogic.Model
             {
                 if (!Enum.IsDefined(typeof(eNumberOfDoors), value))
                 {
-                    throw new ArgumentException($"Invalid number of doors: {value}");
+                    throw new FormatException($"Invalid number of doors: {value}");
                 }
 
                 m_NumberOfDoors = value;

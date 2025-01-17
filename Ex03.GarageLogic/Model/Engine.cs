@@ -4,7 +4,7 @@ using Ex03.GarageLogic.Exceptions;
 
 namespace Ex03.GarageLogic.Model
 {
-    public abstract class Engine
+    internal abstract class Engine
     {
         protected float m_CurrentEnergy;
         protected float m_MaxEnergy;

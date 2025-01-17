@@ -5,7 +5,7 @@ using System.Runtime.Remoting.Messaging;
 
 namespace Ex03.GarageLogic.Model
 {
-    public abstract class Vehicle
+    internal abstract class Vehicle
     {
         private string m_ModelName;
         private List<Wheel> m_Wheels;

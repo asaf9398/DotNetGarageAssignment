@@ -35,7 +35,6 @@
     <Compile Include="View\GarageUIMethodsInvoker.cs" />
     <Compile Include="View\MainMenu.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="Utils\ReflectionHelper.cs" />
     <Compile Include="Utils\StringUtils.cs" />
   </ItemGroup>
   <ItemGroup>

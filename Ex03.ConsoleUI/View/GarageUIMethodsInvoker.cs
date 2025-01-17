@@ -24,7 +24,12 @@ namespace Ex03.ConsoleUI
             {
                 object returnedValue = i_Method.Invoke(i_Garage, arguments);
 
-                if (returnedValue is List<string>)
+                if (returnedValue is List<PropertyDefinition> properties)
+                {
+                    Dictionary<string, object> filledProperties = CollectPropertiesFromUser(properties);
+                    i_Garage.GetType().GetMethod("FillVehicleProperties", BindingFlags.NonPublic | BindingFlags.Instance)?.Invoke(i_Garage, new object[] { arguments[0], filledProperties });
+                }
+                else if (returnedValue is List<string>)
                 {
                     Console.WriteLine("The wanted details:");
                     List<string> currentStringList = (List<string>)returnedValue;
@@ -33,10 +38,6 @@ namespace Ex03.ConsoleUI
                     {
                         Console.WriteLine($"{currentString}");
                     }
-                }
-                else if (returnedValue != null)
-                {
-                    ReflectionHelper.GetInputToObject(returnedValue);
                 }
 
                 Console.WriteLine("Operation completed successfully.");
@@ -73,7 +74,7 @@ namespace Ex03.ConsoleUI
 
                 Console.WriteLine($"Enter {paramName} ({paramType}):");
                 string input = Console.ReadLine();
-                
+
                 try
                 {
                     if (i_Parameters[i].ParameterType.IsEnum)
@@ -101,6 +102,49 @@ namespace Ex03.ConsoleUI
             }
         }
 
-        
+        private static Dictionary<string, object> CollectPropertiesFromUser(List<PropertyDefinition> properties)
+        {
+            Dictionary<string, object> filledProperties = new Dictionary<string, object>();
+            object convertedValue = null;
+
+            for (int i = 0; i < properties.Count; i++)
+            {
+                PropertyDefinition property = properties[i];
+
+                if (property.IsEnum)
+                {
+                    Console.WriteLine($"Enter {property.DisplayName} ({StringUtils.EnumOptionsToString(property.PropertyType)}):");
+                }
+                else
+                {
+                    Console.WriteLine($"Enter {property.DisplayName} ({property.PropertyType.Name}):");
+                }
+
+                string input = Console.ReadLine();
+
+                try
+                {
+                    convertedValue = property.IsEnum ? Enum.Parse(property.PropertyType, input, true) : Convert.ChangeType(input, property.PropertyType);
+                }
+                catch (Exception ex)
+                {
+                    string message = ex.Message;
+
+                    if (ex.InnerException != null)
+                    {
+                        message = ex.InnerException.Message;
+                    }
+
+                    Console.WriteLine($"Error: {message}");
+                    Console.WriteLine($"Please try again!");
+                    i--;
+                    continue;
+                }
+
+                filledProperties[property.Name] = convertedValue;
+            }
+
+            return filledProperties;
+        }
     }
 }

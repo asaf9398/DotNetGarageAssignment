@@ -1,4 +1,5 @@
 ﻿using Ex03.GarageLogic.Enums;
+using Ex03.GarageLogic.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,5 +27,30 @@ namespace Ex03.GarageLogic.Utils
 
             return writableProperties.ToArray();
         }
+
+        public static List<PropertyDefinition> GetProperties(object i_InputObject)
+        {
+            List<PropertyDefinition> propertyDefinitions = new List<PropertyDefinition>();
+            PropertyInfo[] properties = i_InputObject.GetType().GetProperties();
+
+            foreach (PropertyInfo property in properties)
+            {
+                MethodInfo setMethod = property.GetSetMethod();
+                if (setMethod != null)
+                {
+                    propertyDefinitions.Add(new PropertyDefinition
+                    {
+                        Name = property.Name,
+                        DisplayName = StringUtils.SplitCamelCase(property.Name),
+                        PropertyType = property.PropertyType,
+                        IsEnum = property.PropertyType.IsEnum,
+                        EnumOptions = property.PropertyType.IsEnum ? StringUtils.EnumOptionsToString(property.PropertyType) : null
+                    });
+                }
+            }
+
+            return propertyDefinitions;
+        }
+
     }
 }

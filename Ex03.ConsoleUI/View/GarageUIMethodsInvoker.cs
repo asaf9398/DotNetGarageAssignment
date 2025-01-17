@@ -11,7 +11,7 @@ using System.Text;
 
 namespace Ex03.ConsoleUI
 {
-    internal static class GarageUIInvoker
+    internal static class GarageUIMethodsInvoker
     {
         private const string k_InputStringPrefix = "i_";
         public static void InvokeFunction(MethodInfo i_Method, Garage i_Garage)
@@ -24,19 +24,19 @@ namespace Ex03.ConsoleUI
             {
                 object returnedValue = i_Method.Invoke(i_Garage, arguments);
 
-                if (returnedValue is Vehicle)
-                {
-                    GetInputToVehicle(returnedValue);
-                }
-                else if (returnedValue is List<string>)
+                if (returnedValue is List<string>)
                 {
                     Console.WriteLine("The wanted details:");
                     List<string> currentStringList = (List<string>)returnedValue;
 
-                    foreach (var currentString in currentStringList)
+                    foreach (string currentString in currentStringList)
                     {
                         Console.WriteLine($"{currentString}");
                     }
+                }
+                else if (returnedValue != null)
+                {
+                    ReflectionHelper.GetInputToObject(returnedValue);
                 }
 
                 Console.WriteLine("Operation completed successfully.");
@@ -73,6 +73,7 @@ namespace Ex03.ConsoleUI
 
                 Console.WriteLine($"Enter {paramName} ({paramType}):");
                 string input = Console.ReadLine();
+                
                 try
                 {
                     if (i_Parameters[i].ParameterType.IsEnum)
@@ -100,58 +101,6 @@ namespace Ex03.ConsoleUI
             }
         }
 
-        public static void GetInputToVehicle(object i_VehicleObject)
-        {
-            PropertyInfo[] vehicleProperties = ReflectionHelper.GetPropertiesFromObject(i_VehicleObject);
-
-            if (vehicleProperties != null)
-            {
-                for (int i = 0; i < vehicleProperties.Length; i++)
-                {
-                    try
-                    {
-                        string paramType = "";
-
-                        if (vehicleProperties[i].PropertyType.IsEnum)
-                        {
-                            paramType = StringUtils.EnumOptionsToString(vehicleProperties[i].PropertyType);
-                        }
-                        else
-                        {
-                            paramType = vehicleProperties[i].PropertyType.Name;
-                        }
-
-                        Console.WriteLine($"Enter {StringUtils.SplitCamelCase(vehicleProperties[i].Name)} ({paramType}):");
-                        string input = Console.ReadLine();
-                        object convertedValue;
-
-                        if (vehicleProperties[i].PropertyType.IsEnum)
-                        {
-                            convertedValue = Enum.Parse(vehicleProperties[i].PropertyType, input, ignoreCase: true);
-                        }
-                        else
-                        {
-                            convertedValue = Convert.ChangeType(input, vehicleProperties[i].PropertyType);
-                        }
-
-                        vehicleProperties[i].SetValue(i_VehicleObject, convertedValue, null);
-                    }
-                    catch (Exception ex)
-                    {
-                        string message = ex.Message;
-
-                        if (ex.InnerException != null)
-                        {
-                            message = ex.InnerException.Message;
-                        }
-
-                        Console.WriteLine($"Error: {message}");
-                        Console.WriteLine($"Please try again!");
-                        i--;
-                    }
-                }
-            }
-        }
-
+        
     }
 }

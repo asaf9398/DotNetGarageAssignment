@@ -40,7 +40,7 @@ namespace Ex03.ConsoleUI
                 if (int.TryParse(userChoice, out int option) && option >= 1 && option <= filteredMethods.Count)
                 {
                     MethodInfo selectedMethod = filteredMethods[option - 1];
-                    GarageUIInvoker.InvokeFunction(selectedMethod, m_Garage);
+                    GarageUIMethodsInvoker.InvokeFunction(selectedMethod, m_Garage);
                 }
                 else if (option == filteredMethods.Count + 1)
                 {

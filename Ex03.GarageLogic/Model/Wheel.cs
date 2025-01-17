@@ -23,7 +23,11 @@ namespace Ex03.GarageLogic.Model
             get { return m_CurrentAirPressure; }
             set { m_CurrentAirPressure = value; }
         }
-        public string ManufacturerName { get { return m_ManufacturerName; } }
+        public string ManufacturerName
+        {
+            get { return m_ManufacturerName; }
+            set { m_ManufacturerName = value; }
+        }
 
 
         public Wheel(string i_ManufacturerName, float i_MaxAirPressure, float i_InitializeAirPressure = 0)

@@ -32,7 +32,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="View\GarageUIInvoker.cs" />
+    <Compile Include="View\GarageUIMethodsInvoker.cs" />
     <Compile Include="View\MainMenu.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Utils\ReflectionHelper.cs" />

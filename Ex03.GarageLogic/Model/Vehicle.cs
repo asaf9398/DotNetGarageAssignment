@@ -16,6 +16,17 @@ namespace Ex03.GarageLogic.Model
             get { return m_ModelName; }
             set { m_ModelName = value; }
         }
+        public string WheelsManufacturerName
+        {
+            set
+            {
+                foreach (Wheel wheel in m_Wheels)
+                {
+                    wheel.ManufacturerName = value;
+                }
+            }
+            get { return m_Wheels[0].ManufacturerName; }
+        }
 
         public float CurrentWheelsAir
         {

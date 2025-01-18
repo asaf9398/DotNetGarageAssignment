@@ -49,6 +49,11 @@ namespace Ex03.GarageLogic.Model
                 return m_Wheels[0].CurrentAirPressure;
             }
         }
+        public float CurrentEnergy
+        {
+            get { return Engine.CurrentEnergy; }
+            set { Engine.CurrentEnergy = value; }
+        }
         public float MaxWheelsAir
         {
             get { return m_Wheels[0].MaxAirPressure; }

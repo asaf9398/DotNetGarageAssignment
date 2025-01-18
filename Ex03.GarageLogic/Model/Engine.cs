@@ -21,6 +21,15 @@ namespace Ex03.GarageLogic.Model
         public float CurrentEnergy
         {
             get { return m_CurrentEnergy; }
+            set
+            {
+                if (value > MaxEnergy)
+                {
+                    throw new ValueOutOfRangeException(0, m_MaxEnergy, $"The amount that entered is illegal or exceeds tank capacity(0 to {m_MaxEnergy}).");
+                }
+
+                m_CurrentEnergy = value;
+            }
         }
 
         public float MaxEnergy

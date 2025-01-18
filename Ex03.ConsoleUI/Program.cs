@@ -9,15 +9,12 @@ using Ex03.GarageLogic.Model;
 
 namespace Ex03.ConsoleUI
 {
-    class ProgramTest
+    public class Program
     {
-        public class Program
+        public static void Main(string[] args)
         {
-            public static void Main(string[] args)
-            {
-                MainMenu menu = new MainMenu();
-                menu.Run();
-            }
+            MainMenu menu = new MainMenu();
+            menu.Run();
         }
     }
 }

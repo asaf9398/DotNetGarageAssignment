@@ -33,7 +33,7 @@ namespace Ex03.ConsoleUI
             while (!exitRequested)
             {
                 Console.Clear();
-                DisplayMenuOptions();
+                displayMenuOptions();
                 Console.WriteLine("Select an option:");
                 string userChoice = Console.ReadLine();
 
@@ -56,7 +56,7 @@ namespace Ex03.ConsoleUI
             }
         }
 
-        private void DisplayMenuOptions()
+        private void displayMenuOptions()
         {
             Console.WriteLine("Garage Management System - Main Menu:");
 

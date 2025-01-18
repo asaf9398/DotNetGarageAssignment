@@ -26,8 +26,8 @@ namespace Ex03.ConsoleUI
 
                 if (returnedValue is List<PropertyDefinition> properties)
                 {
-                    Dictionary<string, object> filledProperties = CollectPropertiesFromUser(properties);
-                    i_Garage.GetType().GetMethod("FillVehicleProperties", BindingFlags.NonPublic | BindingFlags.Instance)?.Invoke(i_Garage, new object[] { arguments[0], filledProperties });
+                    Dictionary<string, object> filledProperties = collectPropertiesFromUser(properties);
+                    i_Garage.GetType().GetMethod("fillVehicleProperties", BindingFlags.NonPublic | BindingFlags.Instance)?.Invoke(i_Garage, new object[] { arguments[0], filledProperties });
                 }
                 else if (returnedValue is List<string>)
                 {
@@ -102,7 +102,7 @@ namespace Ex03.ConsoleUI
             }
         }
 
-        private static Dictionary<string, object> CollectPropertiesFromUser(List<PropertyDefinition> properties)
+        private static Dictionary<string, object> collectPropertiesFromUser(List<PropertyDefinition> properties)
         {
             Dictionary<string, object> filledProperties = new Dictionary<string, object>();
             object convertedValue = null;

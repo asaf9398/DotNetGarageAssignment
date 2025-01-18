@@ -38,7 +38,7 @@ namespace Ex03.GarageLogic.Model
             }
         }
 
-        private void FillVehicleProperties(string i_LicenseNumber, Dictionary<string, object> i_PropertyValues)
+        private void fillVehicleProperties(string i_LicenseNumber, Dictionary<string, object> i_PropertyValues)
         {
             if (m_Vehicles.TryGetValue(i_LicenseNumber, out GarageVehicle garageVehicle))
             {

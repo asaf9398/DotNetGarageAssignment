@@ -14,6 +14,7 @@ namespace Ex03.GarageLogic.Model
         public eFuelType FuelType
         {
             get { return m_FuelType; }
+            set { m_FuelType = value; }
         }
 
         public FuelEngine(eFuelType i_FuelType = eFuelType.Octan95, float i_MaxEnergy = 0)
@@ -21,16 +22,6 @@ namespace Ex03.GarageLogic.Model
             m_FuelType = i_FuelType;
             m_MaxEnergy = i_MaxEnergy;
             m_CurrentEnergy = 0;
-        }
-
-        public override void Refill(float i_Amount)
-        {
-            if (m_CurrentEnergy + i_Amount > m_MaxEnergy || i_Amount < 0)
-            {
-                throw new ValueOutOfRangeException(0, m_MaxEnergy, "Fuel amount illegal or exceeds tank capacity.");
-            }
-
-            m_CurrentEnergy += i_Amount;
         }
     }
 

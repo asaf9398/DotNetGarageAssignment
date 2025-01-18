@@ -21,8 +21,13 @@ namespace Ex03.GarageLogic.Model
         public float CurrentAirPressure
         {
             get { return m_CurrentAirPressure; }
+            set { m_CurrentAirPressure = value; }
         }
-
+        public string ManufacturerName
+        {
+            get { return m_ManufacturerName; }
+            set { m_ManufacturerName = value; }
+        }
 
         public Wheel(string i_ManufacturerName, float i_MaxAirPressure, float i_InitializeAirPressure = 0)
         {
@@ -34,7 +39,7 @@ namespace Ex03.GarageLogic.Model
         {
             if (m_CurrentAirPressure + i_PressureToAdd > m_MaxAirPressure || i_PressureToAdd < 0)
             {
-                throw new ValueOutOfRangeException(0, m_MaxAirPressure, "Air pressure exceeds maximum limit.");
+                throw new ValueOutOfRangeException(0, m_MaxAirPressure, $"Air pressure is not valid(0 to {m_MaxAirPressure}).");
             }
 
             m_CurrentAirPressure += i_PressureToAdd;

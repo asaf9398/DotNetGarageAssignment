@@ -10,6 +10,7 @@ namespace Ex03.GarageLogic.Enums
     {
         InRepair,
         Repaired,
-        Paid
+        Paid,
+        Everyone
     }
 }

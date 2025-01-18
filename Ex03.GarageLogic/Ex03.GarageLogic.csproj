@@ -55,11 +55,13 @@
     <Compile Include="Model\Garage.cs" />
     <Compile Include="Model\GarageVehicle.cs" />
     <Compile Include="Model\Motorcycle.cs" />
+    <Compile Include="Model\PropertyDefinition.cs" />
     <Compile Include="Model\Truck.cs" />
     <Compile Include="Model\Vehicle.cs" />
-    <Compile Include="Model\VehicleInputHelper.cs" />
     <Compile Include="Model\Wheel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\ReflectionHelper.cs" />
+    <Compile Include="Utils\StringUtils.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

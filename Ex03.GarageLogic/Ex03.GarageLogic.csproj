@@ -47,7 +47,6 @@
     <Compile Include="Enums\eMotorcicleLicenceType.cs" />
     <Compile Include="Enums\eNumberOfDoors.cs" />
     <Compile Include="Exceptions\ValueOutOfRangeException.cs" />
-    <Compile Include="Exceptions\VehicleAlreadyInGarageException.cs" />
     <Compile Include="Factory\VehicleFactory.cs" />
     <Compile Include="Model\Car.cs" />
     <Compile Include="Model\ElectricEngine.cs" />

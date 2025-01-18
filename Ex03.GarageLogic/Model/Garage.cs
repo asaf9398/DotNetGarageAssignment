@@ -27,7 +27,7 @@ namespace Ex03.GarageLogic.Model
             if (m_Vehicles.ContainsKey(i_LicenseNumber))
             {
                 m_Vehicles[i_LicenseNumber].Status = eVehicleStatus.InRepair;
-                throw new VehicleAlreadyInGarageException($"The vehicle with the plate: {i_LicenseNumber} is already in the garage!{Environment.NewLine}The vehicle status changed to \"In Repair\"");
+                throw new ArgumentException($"The vehicle with the plate: {i_LicenseNumber} is already in the garage!{Environment.NewLine}The vehicle status changed to \"In Repair\"");
             }
             else
             {
